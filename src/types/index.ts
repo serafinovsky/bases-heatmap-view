@@ -1,0 +1,86 @@
+import type { TFile } from "obsidian";
+
+export interface HeatmapEntry {
+  date: string;
+  value: number | null;
+  note: TFile;
+  displayValue: string;
+}
+
+export interface ProcessedData {
+  entries: Map<string, HeatmapEntry>;
+  stats: {
+    min: number;
+    max: number;
+    count: number;
+    hasNumeric: boolean;
+  };
+}
+
+export interface HeatmapViewConfig {
+  dateProperty: string;
+  valueProperty: string;
+  startDate: string | null;
+  endDate: string | null;
+  colorScheme: ColorScheme;
+  weekStart: 0 | 1;
+  showWeekdayLabels: boolean;
+  showMonthLabels: boolean;
+  layoutDirection: LayoutDirection;
+  cellSize: CellSizePreset;
+  minValue: number | null;
+  maxValue: number | null;
+}
+
+export type ColorScheme = string;
+
+export type LayoutDirection = "horizontal" | "vertical";
+
+export type CellSizePreset = "small" | "medium" | "large";
+
+export const CELL_SIZE_VALUES: Record<CellSizePreset, number> = {
+  small: 11,
+  medium: 16,
+  large: 24,
+};
+
+export interface ColorSchemeItem {
+  id: string;
+  name: string;
+  zeroColor: string;
+  maxColor: string;
+  isDefault?: boolean;
+}
+
+export type CellState =
+  | { type: "empty" }
+  | { type: "zero"; note: TFile }
+  | { type: "filled"; note: TFile; intensity: number };
+
+export interface DateRange {
+  start: Date;
+  end: Date;
+}
+
+export interface CellData {
+  date: string;
+  state: CellState;
+  row: number;
+  column: number;
+}
+
+export interface MonthLabel {
+  name: string;
+  startColumn: number;
+  endColumn: number;
+}
+
+export interface VerticalMonthLabel {
+  name: string;
+  startRow: number;
+  endRow: number;
+}
+
+export interface HeatmapPluginSettings {
+  colorSchemes: ColorSchemeItem[];
+}
