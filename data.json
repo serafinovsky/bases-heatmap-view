@@ -1,5 +1,4 @@
 {
-  "showHexColorInTooltip": false,
   "colorSchemes": [
     {
       "id": "green",
@@ -36,5 +35,7 @@
       "maxColor": "#adbac7",
       "isDefault": true
     }
-  ]
+  ],
+  "dateFormat": "YYYY-MM-DD",
+  "showHexColorInTooltip": false
 }

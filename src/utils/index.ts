@@ -1,3 +1,3 @@
+export * from "./color";
 export * from "./data";
-export * from "./dateUtils";
-export * from "./color-utils";
+export * from "./date";

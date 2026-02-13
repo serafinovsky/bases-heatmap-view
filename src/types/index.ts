@@ -1,4 +1,4 @@
-import type { TFile } from "obsidian";
+import type { BasesPropertyId, TFile } from "obsidian";
 
 export interface HeatmapEntry {
   date: string;
@@ -7,34 +7,33 @@ export interface HeatmapEntry {
   displayValue: string;
 }
 
+export type ValueType = "boolean" | "number" | "unsupported";
+
 export interface ProcessedData {
   entries: Map<string, HeatmapEntry>;
   stats: {
     min: number;
     max: number;
     count: number;
-    hasNumeric: boolean;
+    valueType: ValueType;
   };
 }
 
 export interface HeatmapViewConfig {
-  dateProperty: string;
-  valueProperty: string;
+  dateProperty: BasesPropertyId | null;
+  valueProperty: BasesPropertyId | null;
   startDate: string | null;
   endDate: string | null;
   colorScheme: ColorScheme;
   weekStart: 0 | 1;
   showWeekdayLabels: boolean;
   showMonthLabels: boolean;
-  layoutDirection: LayoutDirection;
   cellSize: CellSizePreset;
   minValue: number | null;
   maxValue: number | null;
 }
 
 export type ColorScheme = string;
-
-export type LayoutDirection = "horizontal" | "vertical";
 
 export type CellSizePreset = "small" | "medium" | "large";
 
@@ -62,25 +61,13 @@ export interface DateRange {
   end: Date;
 }
 
-export interface CellData {
-  date: string;
-  state: CellState;
-  row: number;
-  column: number;
-}
-
 export interface MonthLabel {
   name: string;
   startColumn: number;
   endColumn: number;
 }
 
-export interface VerticalMonthLabel {
-  name: string;
-  startRow: number;
-  endRow: number;
-}
-
 export interface HeatmapPluginSettings {
   colorSchemes: ColorSchemeItem[];
+  dateFormat: string;
 }

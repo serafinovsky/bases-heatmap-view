@@ -12,18 +12,21 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "npm run lint && npm run format:check"
-    ,
+    "check": "npm run lint && npm run format:check",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "i18next": "25.8.3"
+    "culori": "^4.0.2",
+    "i18next": "25.8.3",
+    "preact": "^10.28.3"
   },
   "devDependencies": {
     "@eslint/js": "9.39.2",
+    "@types/culori": "^4.0.1",
     "@types/node": "25.2.0",
+    "@vitest/coverage-v8": "4.0.18",
     "esbuild": "0.27.2",
     "eslint": "9.39.2",
     "eslint-plugin-obsidianmd": "0.1.9",
@@ -31,9 +34,7 @@
     "obsidian": "1.11.4",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.54.0"
-    ,
-    "@vitest/coverage-v8": "4.0.18",
+    "typescript-eslint": "8.54.0",
     "vitest": "4.0.18"
   }
 }

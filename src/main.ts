@@ -1,28 +1,36 @@
 import { Plugin, QueryController, type ViewOption } from "obsidian";
-import { DEFAULT_COLOR_SCHEMES, DEFAULT_SETTINGS } from "./settings";
+import { initI18n, t } from "./i18n";
+import { getDefaultDateStrings } from "./utils";
+import { DEFAULT_COLOR_SCHEMES, DEFAULT_SETTINGS, HeatmapSettingTab } from "./settings";
 import type { HeatmapPluginSettings } from "./types";
 import { HeatmapView, HEATMAP_VIEW_TYPE } from "./view";
-import { HeatmapSettingTab } from "./settings/settings-tab";
 
 export default class HeatmapBasesViewPlugin extends Plugin {
   settings!: HeatmapPluginSettings;
+  private activeViews: HeatmapView[] = [];
 
   async onload() {
+    await initI18n("en");
     await this.loadSettings();
+
     this.addSettingTab(new HeatmapSettingTab(this.app, this));
 
-    (this.app.workspace as unknown as {
-      registerHoverLinkSource: (
-        id: string,
-        info: { display: string; defaultMod: boolean }
-      ) => void;
-    }).registerHoverLinkSource("heatmap-bases-view", {
-      display: "Heatmap",
+    (
+      this.app.workspace as unknown as {
+        registerHoverLinkSource: (
+          id: string,
+          info: { display: string; defaultMod: boolean }
+        ) => void;
+      }
+    ).registerHoverLinkSource("heatmap-bases-view", {
+      display: t("view.options.displayName"),
       defaultMod: true,
     });
 
+    this.registerEvent(this.app.workspace.on("css-change", () => this.refreshAllViews()));
+
     this.registerBasesView(HEATMAP_VIEW_TYPE, {
-      name: "Heatmap",
+      name: t("view.options.displayName"),
       icon: "calendar-heat",
       factory: (controller: QueryController, containerEl: HTMLElement) =>
         new HeatmapView(controller, containerEl, this),
@@ -30,87 +38,79 @@ export default class HeatmapBasesViewPlugin extends Plugin {
         {
           type: "property",
           key: "dateProperty",
-          displayName: "Date property",
-          placeholder: "Use filename for daily notes",
+          displayName: t("view.options.dateProperty"),
+          placeholder: t("view.options.datePropertyPlaceholder"),
         },
         {
           type: "property",
           key: "valueProperty",
-          displayName: "Value property",
+          displayName: t("view.options.valueProperty"),
         },
         {
           type: "text",
           key: "startDate",
-          displayName: "Start date",
-          placeholder: "YYYY-MM-DD (leave empty for auto)",
+          displayName: t("view.options.startDate"),
+          placeholder: t("view.options.startDatePlaceholder"),
+          default: getDefaultDateStrings().startDate,
         },
         {
           type: "text",
           key: "endDate",
-          displayName: "End date",
-          placeholder: "YYYY-MM-DD (leave empty for today)",
+          displayName: t("view.options.endDate"),
+          placeholder: t("view.options.endDatePlaceholder"),
+          default: getDefaultDateStrings().endDate,
         },
         {
           type: "dropdown",
           key: "colorScheme",
-          displayName: "Color scheme",
+          displayName: t("view.options.colorScheme"),
           default: "green",
           options: this.getColorSchemeOptions(),
         },
         {
           type: "dropdown",
           key: "weekStart",
-          displayName: "Week starts on",
+          displayName: t("view.options.weekStart"),
           default: "0",
           options: {
-            "0": "Sunday",
-            "1": "Monday",
+            "0": t("view.options.sunday"),
+            "1": t("view.options.monday"),
           },
         },
         {
           type: "toggle",
           key: "showWeekdayLabels",
-          displayName: "Show weekday labels",
+          displayName: t("view.options.showWeekdayLabels"),
           default: true,
         },
         {
           type: "toggle",
           key: "showMonthLabels",
-          displayName: "Show month labels",
+          displayName: t("view.options.showMonthLabels"),
           default: true,
         },
         {
           type: "dropdown",
-          key: "layoutDirection",
-          displayName: "Layout direction",
-          default: "horizontal",
-          options: {
-            horizontal: "Horizontal (GitHub-style)",
-            vertical: "Vertical (calendar-style)",
-          },
-        },
-        {
-          type: "dropdown",
           key: "cellSize",
-          displayName: "Cell size",
+          displayName: t("view.options.cellSize"),
           default: "small",
           options: {
-            small: "Small (11px)",
-            medium: "Medium (16px)",
-            large: "Large (24px)",
+            small: t("view.options.small"),
+            medium: t("view.options.medium"),
+            large: t("view.options.large"),
           },
         },
         {
           type: "text",
           key: "minValue",
-          displayName: "Min value",
-          placeholder: "Auto (based on data)",
+          displayName: t("view.options.minValue"),
+          placeholder: t("view.options.minValuePlaceholder"),
         },
         {
           type: "text",
           key: "maxValue",
-          displayName: "Max value",
-          placeholder: "Auto (based on data)",
+          displayName: t("view.options.maxValue"),
+          placeholder: t("view.options.maxValuePlaceholder"),
         },
       ],
     });
@@ -121,6 +121,9 @@ export default class HeatmapBasesViewPlugin extends Plugin {
     this.settings = Object.assign({}, DEFAULT_SETTINGS, loaded);
     if (!this.settings.colorSchemes || this.settings.colorSchemes.length === 0) {
       this.settings.colorSchemes = DEFAULT_COLOR_SCHEMES;
+    }
+    if (!this.settings.dateFormat) {
+      this.settings.dateFormat = DEFAULT_SETTINGS.dateFormat;
     }
   }
 
@@ -134,5 +137,22 @@ export default class HeatmapBasesViewPlugin extends Plugin {
       options[scheme.id] = scheme.name;
     }
     return options;
+  }
+
+  registerHeatmapView(view: HeatmapView): void {
+    if (!this.activeViews.includes(view)) {
+      this.activeViews.push(view);
+    }
+  }
+
+  unregisterHeatmapView(view: HeatmapView): void {
+    const i = this.activeViews.indexOf(view);
+    if (i !== -1) this.activeViews.splice(i, 1);
+  }
+
+  refreshAllViews(): void {
+    for (const view of this.activeViews) {
+      view.refresh();
+    }
   }
 }

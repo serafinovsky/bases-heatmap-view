@@ -40,4 +40,9 @@ export const DEFAULT_COLOR_SCHEMES: ColorSchemeItem[] = [
 
 export const DEFAULT_SETTINGS: HeatmapPluginSettings = {
   colorSchemes: DEFAULT_COLOR_SCHEMES,
+  dateFormat: "YYYY-MM-DD",
 };
+
+export { HeatmapSettingTab } from "./HeatmapSettingTab";
+export { EditSchemeModal } from "./EditSchemeModal";
+export * from "./utils";

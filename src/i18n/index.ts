@@ -2,7 +2,7 @@ import i18next from "i18next";
 import en from "../../locales/en.json";
 
 const locales = {
-  en
+  en,
 };
 
 type Locale = keyof typeof locales;
@@ -17,11 +17,11 @@ export async function initI18n(locale: string = "en") {
     lng: locale,
     fallbackLng: "en",
     resources: {
-      en: { translation: en }
+      en: { translation: en },
     },
     interpolation: {
-      escapeValue: false
-    }
+      escapeValue: false,
+    },
   });
 }
 
@@ -39,15 +39,15 @@ export async function setLocale(locale: string): Promise<void> {
  * Get translation for a key
  * @param key - translation key
  * @param params - interpolation parameters (optional)
- * 
+ *
  * @example
  * // Simple translation
  * t("plugin_loaded")
- * 
+ *
  * @example
  * // With interpolation (see docs for details)
  * t("greeting", { name: "John" })
- * 
+ *
  * @example
  * // With pluralization (see docs for details)
  * t("file", { count: 5 })

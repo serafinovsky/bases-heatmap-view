@@ -1,3 +1,100 @@
 {
-  "plugin_loaded": "Plugin loaded"
+  "plugin_loaded": "Plugin loaded",
+
+  "settings": {
+    "dateFormat": {
+      "heading": "Date format for daily notes filenames",
+      "referTo": "For more syntax, refer to",
+      "formatReference": "format reference",
+      "previewLabel": "Your current syntax looks like this:"
+    },
+    "colorSchemes": {
+      "heading": "Color schemes",
+      "description": "Add, edit, or remove color schemes used in heatmaps.",
+      "addButton": "Add color scheme",
+      "saved": "Color scheme saved.",
+      "editTooltip": "Edit",
+      "deleteTooltip": "Delete"
+    },
+    "editModal": {
+      "addTitle": "Add color scheme",
+      "editTitle": "Edit color scheme",
+      "nameLabel": "Name",
+      "nameDesc": "Display name for this color scheme",
+      "namePlaceholder": "My custom scheme",
+      "zeroColorLabel": "Zero color",
+      "zeroColorDesc": "Color for empty/zero values",
+      "maxColorLabel": "Max color",
+      "maxColorDesc": "Color for maximum values",
+      "saveButton": "Save",
+      "cancelButton": "Cancel"
+    }
+  },
+
+  "validation": {
+    "nameRequired": "Name is required"
+  },
+
+  "view": {
+    "emptyState": {
+      "configureProperty": "Configure value property",
+      "configurePropertyDesc": "Select a property to visualize in the view settings.",
+      "noData": "No data to display",
+      "noDataDesc": "No notes found in the current filter. Check your Base filters.",
+      "unsupportedProperty": "Unsupported property type",
+      "unsupportedPropertyDesc": "{{property}} is not a boolean or number property. Heatmap requires boolean or number properties.",
+      "invalidDateFormat": "Invalid date format",
+      "invalidDateFormatDesc": "Start date and end date must be in YYYY-MM-DD format.",
+      "startAfterEnd": "Invalid date range",
+      "startAfterEndDesc": "Start date must be before end date.",
+      "noDatedNotes": "No dated notes found",
+      "noDatedNotesDesc": "No notes with valid dates were found. Check your date property setting.",
+      "rangeTooLarge": "Date range too large",
+      "rangeTooLargeDesc": "Maximum range is 5 years for performance. Please narrow the start or end date."
+    },
+    "options": {
+      "displayName": "Heatmap",
+      "dateProperty": "Date property",
+      "datePropertyPlaceholder": "Use filename for daily notes",
+      "valueProperty": "Value property",
+      "startDate": "Start date",
+      "startDatePlaceholder": "YYYY-MM-DD (leave empty for auto)",
+      "endDate": "End date",
+      "endDatePlaceholder": "YYYY-MM-DD (leave empty for today)",
+      "colorScheme": "Color scheme",
+      "weekStart": "Week starts on",
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "showWeekdayLabels": "Show weekday labels",
+      "showMonthLabels": "Show month labels",
+      "cellSize": "Cell size",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large",
+      "minValue": "Min value",
+      "minValuePlaceholder": "Auto (based on data)",
+      "maxValue": "Max value",
+      "maxValuePlaceholder": "Auto (based on data)"
+    },
+    "noNote": "No note"
+  },
+
+  "dates": {
+    "monthShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "weekdayShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "weekdayShortMondayFirst": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  }
 }

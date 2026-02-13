@@ -8,7 +8,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...obsidianmd.configs.recommended,
   {
-    files: ["src/**/*.ts", "tests/**/*.ts"],
+    files: ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -16,21 +16,15 @@ export default tseslint.config(
         ...globals.browser,
       },
       parserOptions: {
-        projectService: {
-          allowDefaultProject: [
-            "eslint.config.js",
-            "manifest.json",
-            "versions.json"
-          ]
-        },
+        project: "./tsconfig.json",
         tsconfigRootDir: import.meta.dirname,
-        extraFileExtensions: [".json"]
-      }
-    }
+      },
+    },
   },
   {
     ignores: [
       "main.js",
+      "coverage/",
       "node_modules/",
       "*.cjs",
       "*.config.js",
@@ -38,7 +32,7 @@ export default tseslint.config(
       "vitest.config.ts",
       "eslint.config.js",
       "esbuild.config.mjs",
-      "version-bump.mjs"
-    ]
+      "version-bump.mjs",
+    ],
   }
 );
