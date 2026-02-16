@@ -1,7 +1,7 @@
 {
   "id": "bases-heatmap-view",
   "name": "Bases heatmap view",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "minAppVersion": "1.10.0",
   "description": "Calendar-style heatmap visualization for any date-based property in your Bases tables. Track activity, habits, progress, or any numeric/date-related data with beautiful color-coded squares.",
   "author": "Mark Serafinovsky"
