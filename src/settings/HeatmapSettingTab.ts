@@ -56,6 +56,7 @@ export class HeatmapSettingTab extends PluginSettingTab {
       .setName(t("settings.dateFormat.heading"))
       .addText((text) =>
         text
+          // eslint-disable-next-line obsidianmd/ui/sentence-case -- format token, not UI text
           .setPlaceholder("YYYY-MM-DD")
           .setValue(this.plugin.settings.dateFormat ?? "YYYY-MM-DD")
           .onChange(async (value) => {

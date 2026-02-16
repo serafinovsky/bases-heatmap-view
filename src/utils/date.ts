@@ -46,6 +46,12 @@ export function parseISODateString(dateStr: string): Date | null {
   return normalizeDate(new Date(year, month, day));
 }
 
+/** Moment-like result from Obsidian's bundled moment (format parse). */
+interface MomentParseResult {
+  isValid(): boolean;
+  toDate(): Date;
+}
+
 /**
  * Parses date from a filename (e.g. daily note basename) using the given Moment.js format.
  */
@@ -54,7 +60,7 @@ export function parseDateFromFilename(filename: string, format: string): Date | 
   const fmt = format?.trim();
   if (!fmt) return null;
 
-  const m = (moment as any)(name.trim(), fmt, true);
+  const m = moment(name.trim(), fmt, true) as MomentParseResult;
   if (!m.isValid()) return null;
   return normalizeDate(m.toDate());
 }

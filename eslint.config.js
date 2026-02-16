@@ -14,6 +14,7 @@ export default tseslint.config(
       sourceType: "module",
       globals: {
         ...globals.browser,
+        createFragment: "readonly",
       },
       parserOptions: {
         project: "./tsconfig.json",

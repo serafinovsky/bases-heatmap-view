@@ -38,10 +38,7 @@ export interface RenderOptions {
   cellSize: CellSizePreset;
 }
 
-function getCellState(
-  entry: HeatmapEntry | undefined,
-  stats: ProcessedData["stats"]
-): CellState {
+function getCellState(entry: HeatmapEntry | undefined, stats: ProcessedData["stats"]): CellState {
   if (!entry) return { type: "empty" };
   if (entry.value === null) return { type: "zero", note: entry.note };
 
@@ -126,7 +123,9 @@ function WeekdayLabels({ weekStart }: { weekStart: 0 | 1 }) {
   return (
     <div class="heatmap-weekday-labels">
       {labels.map((label, i) => (
-        <span key={i} class="heatmap-weekday-label">{visibleIndices.includes(i) ? label : ""}</span>
+        <span key={i} class="heatmap-weekday-label">
+          {visibleIndices.includes(i) ? label : ""}
+        </span>
       ))}
     </div>
   );
@@ -169,7 +168,9 @@ function Cells({
     const row = dayOfWeek + 1;
     const column = weekNum;
 
-    cells.push(<Cell key={dateStr} date={dateStr} state={state} row={row} column={column} entry={entry} />);
+    cells.push(
+      <Cell key={dateStr} date={dateStr} state={state} row={row} column={column} entry={entry} />
+    );
   }
 
   return <>{cells}</>;
