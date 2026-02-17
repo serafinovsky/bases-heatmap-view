@@ -1,4 +1,4 @@
-import { Plugin, QueryController, type ViewOption } from "obsidian";
+import { Plugin, QueryController, type BasesAllOptions } from "obsidian";
 import { initI18n, t } from "./i18n";
 import { getDefaultDateStrings } from "./utils";
 import { DEFAULT_COLOR_SCHEMES, DEFAULT_SETTINGS, HeatmapSettingTab } from "./settings";
@@ -34,7 +34,7 @@ export default class HeatmapBasesViewPlugin extends Plugin {
       icon: "calendar-heat",
       factory: (controller: QueryController, containerEl: HTMLElement) =>
         new HeatmapView(controller, containerEl, this),
-      options: (): ViewOption[] => [
+      options: (): BasesAllOptions[] => [
         {
           type: "property",
           key: "dateProperty",

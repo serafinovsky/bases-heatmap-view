@@ -4,6 +4,7 @@
   "settings": {
     "dateFormat": {
       "heading": "Date format for daily notes filenames",
+      "placeholder": "YYYY-MM-DD",
       "referTo": "For more syntax, refer to",
       "formatReference": "format reference",
       "previewLabel": "Your current syntax looks like this:"

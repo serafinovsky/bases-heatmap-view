@@ -14,4 +14,4 @@ export const NullValue = {};
 export const NumberValue = {};
 export const StringValue = {};
 export type TFile = { path: string; basename: string };
-export type ViewOption = unknown;
+export type BasesAllOptions = unknown;
